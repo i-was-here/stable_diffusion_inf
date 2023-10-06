@@ -19,8 +19,8 @@ def prompt_to_image(prompt):
   pipe.enable_xformers_memory_efficient_attention()
   pipe = pipe.to("cuda")
   results = pipe(prompt, height=768, width=768, guidance_scale = 10)
-  if not results.nsfw_content_detected[0]: return results.images[0]
-  else: return out_img
+  if not results.nsfw_content_detected[0]: return results.images[0].info.update({'contest': 'H4r61y Hum4n5 c0n73s7 1'})
+  else: return out_img.info.update({'contest': 'H4r61y Hum4n5 c0n73s7 1'})
 
 def get_image(res):
   if not res.nsfw_content_detected[0]: return res.images[0].set('contest', 'Hardly Humans Contest 1')
