@@ -23,7 +23,7 @@ def prompt_to_image(prompt):
   else: return out_img
 
 def get_image(res):
-  if not res.nsfw_content_detected[0]: return res.images[0]
+  if not res.nsfw_content_detected[0]: return res.images[0].set('contest', 'Hardly Humans Contest 1')
   else: return out_img
 
 import gradio as gr
