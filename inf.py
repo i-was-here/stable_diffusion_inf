@@ -16,9 +16,13 @@ pipe = StableDiffusionPipeline.from_pretrained(model_id,
                                                torch_dtype=torch.float16)
 pipe.enable_xformers_memory_efficient_attention()
 pipe = pipe.to("cuda")
+
 def prompt_to_image(prompt):
   results = pipe(prompt, height=768, width=768, guidance_scale = 10)
   if not results.nsfw_content_detected[0]: return results.images[0]
   else: return out_img
+
 import gradio as gr
-gr.Interface(prompt_to_image, gr.Text(), gr.Image(), title = 'Stable Diffusion 2.0 Colab with Gradio UI').launch(share = True, debug = True)
+
+if __name__=="__main__":
+  gr.Interface(prompt_to_image, gr.Text(), gr.Image(), title = 'Stable Diffusion 2.0 Colab with Gradio UI').launch(share = True, debug = True)
