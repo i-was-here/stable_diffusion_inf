@@ -4,6 +4,7 @@ from diffusers.pipelines.stable_diffusion import StableDiffusionSafetyChecker
 from diffusers.models import AutoencoderKL
 from PIL import Image
 import numpy as np
+from PIL import Image, ImageDraw, ImageFont
 out_img = Image.new("RGB", (768, 768), color="black")
 out_img.info.update({'contest': 'H4r61y Hum4n5 c0n73s7 1'})
 def prompt_to_image(prompt):
