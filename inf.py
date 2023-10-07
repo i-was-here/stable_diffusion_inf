@@ -29,6 +29,29 @@ def get_image(res):
     return res.images[0]
   else: return out_img
 
+def extract_process(original_image, watermark_text, position=(0, 0), font_size=400, opacity=100):
+  watermarked_image = original_image.convert("RGBA").copy()
+
+  try:
+      font = ImageFont.truetype("arial.ttf", font_size)
+  except IOError:
+      font = ImageFont.load_default()
+
+  draw = ImageDraw.Draw(watermarked_image, "RGBA")
+
+  text_width, text_height = draw.textsize(watermark_text, font)
+  width, height = watermarked_image.size
+  x = (width - text_width) / 2
+  y = (height - text_height) / 2
+
+  overlay = Image.new("RGBA", watermarked_image.size)
+  overlay_draw = ImageDraw.Draw(overlay, "RGBA")
+  overlay_draw.text((x, y), watermark_text, font=font, fill=(255, 255, 255, opacity))
+
+  watermarked_image = Image.alpha_composite(watermarked_image, overlay)
+
+  return watermarked_image
+
 import gradio as gr
 
 if __name__=="__main__":
